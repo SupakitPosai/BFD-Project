@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<title>Test Firebase</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+<script src="app1.js"></script> 
+<style>
+          @font-face {
+                font-family: 'DB Helvethaica X Bd Cond v3.2'; /*a name to be used later*/
+                src: url("./font/DB Helvethaica X Bd Cond v3.2.ttf"); /*URL to font*/
+        }
+        body{
+                background-image: url("./B01.jpg");
+                
+        }
+.btn {
+            background-color: #F2B90C;
+            width: 170px;
+            font-family: 'DB Helvethaica X Bd Cond v3.2';
+            font-size: 22px;
+            height: 30px;
+            padding: 0 15px 0 15px;
+        }
+
+        .btn1 {
+            width: 100px;
+            padding: 0 5px 0 5px;
+        }
+        h1{
+                font-family: 'DB Helvethaica X Bd Cond v3.2';
+                color: #fff;
+        }
+        h4{
+                font-size: 22px;
+                font-family: 'DB Helvethaica X Bd Cond v3.2';
+        }
+        .thumbnail {
+            padding: 15px 15px 15px 15px;
+            border-radius: 8px;
+            transition: box-shadow 0.5s;
+            border: none;
+            background-color: rgba(0,0,0,0.5) !important;
+            color: #fff;
+        }
+
+            .thumbnail:hover {
+                box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+                background-color: #fff;
+                
+            }
+</style>
+</head>
+<body>
+        <div class="container">
+                <br>
+                <br>
+                <br>
+                <div class="thumbnail thu">
+    <h1>จำลองเซ็นเซอร์ในโรงเรือน</h1>
+    <!-- <pre id="object"></pre> -->
+    <select id="mySelect">
+        <option>B0001</option>
+        <option>B0002</option>
+        <option>B0003</option>
+        <option>B0004</option>
+      </select>
+<br/>
+
+   <div class="row">
+      
+      <div class="col-sm-4">
+           <h4>เซ็นเซอร์วัดค่าอุณหภูมิ   <input class="form-control" type="text" id="myText1" ></h4>
+        </div>
+        <div class="col-sm-4">
+                <button class="btn btn1 btn-warning" onclick="myFunction1()">Send</button>
+        </div>
+</div>
+      <div class="row">
+         
+         <div class="col-sm-4">
+             <h4>เซ็นเซอร์วัดความเร็วลม <input class="form-control" type="text" id="myText2"></h4>
+         </div>
+         <div class="col-sm-4">
+              <button class="btn btn1 btn-warning" onclick="myFunction2()">Send</button>
+         </div>
+      </div>
+      <div class="row">
+                <div class="col-sm-4">
+          <h4>เซ็นเซอร์วัดความชื้น<input class="form-control" type="text" id="myText3" ></h4>
+          </div>
+          <div class="col-sm-4">
+          <button class="btn btn1 btn-warning" onclick="myFunction3()">Send</button>
+        </div>
+       </div>
+       <div class="row">
+                <div class="col-sm-4">
+      <h4>เซ็นเซอร์วัดค่าแก็สแอมโมเนีย<input class="form-control" type="text" id="myText4" ></h4>
+</div>
+<div class="col-sm-4">
+      <button class="btn btn1 btn-warning" onclick="myFunction4()">Send</button>
+      </div>
+      </div>
+      <div class="row">
+              
+                <div class="col-sm-4">
+                        <br>
+            <button class="btn btn1 btn-warning" onclick="myFunction5()">จบการเลี้ยง</button>
+            </div>
+      </div>
+</div>
+     </div> </div>
+ <script>
+         var ii =0;
+var i2 = '';
+
+    // Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyCKzwPN3ZYKdDvN_qZjHAMMWG_jDz0rCyg",
+    authDomain: "bfd1-641d7.firebaseapp.com",
+    databaseURL: "https://bfd1-641d7.firebaseio.com",
+    projectId: "bfd1-641d7",
+    storageBucket: "",
+    messagingSenderId: "963166752196",
+    appId: "1:963166752196:web:04bf0910787dc935"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+const dbRefObject = firebase.database().ref().child('B0001/Start');
+const dbRefObject11 = firebase.database().ref().child('B0001');
+const dbRefObject1 = firebase.database().ref().child('B0001/S0001'); 
+const dbRefObject2 = firebase.database().ref().child('B0001/S0002'); 
+const dbRefObject3 = firebase.database().ref().child('B0001/S0003'); 
+const dbRefObject4 = firebase.database().ref().child('B0001/S0004'); 
+
+
+dbRefObject.on('value', snap =>{
+    console.log(snap.val());
+  if(snap.val()==1){
+        
+    i2=setInterval(Age, 90000); 
+    
+   
+
+    dbRefObject1.update({
+       Value: 20
+   }, function(error) {
+        if (error) {
+             console.log("error");  
+        } else {
+             console.log("Data saved successfully!");  
+        }
+      });
+      dbRefObject2.update({
+          Value: 30
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         dbRefObject3.update({
+          Value: 30
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         dbRefObject4.update({
+          Value: 30
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+
+  }else{
+        
+    ii = 0;
+    dbRefObject11.update({
+       Age: 0,
+       DateFinish:""
+   }, function(error) {
+        if (error) {
+             console.log("error");  
+        } else {
+             console.log("Data saved successfully!");  
+        }
+      });
+      
+    dbRefObject1.update({
+        Value: 0,
+        Problem: "",
+        Solution:"",
+        DateProblem: "",
+        DateRecom:"",
+        Recommend:""
+    }, function(error) {
+         if (error) {
+              console.log("error");  
+         } else {
+              console.log("Data saved successfully!");  
+         }
+       });
+       dbRefObject2.update({
+        Value: 0,
+        Problem: "",
+        Solution:"",
+        DateProblem: "",
+        DateRecom:"",
+        Recommend:""
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         dbRefObject3.update({
+            Value: 0,
+        Problem: "",
+        Solution:"",
+        DateProblem: "",
+        DateRecom:"",
+        Recommend:""
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         dbRefObject4.update({
+            Value: 0,
+        Problem: "",
+        Solution:"",
+        DateProblem: "",
+        DateRecom:"",
+        Recommend:""
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         dbRefObject11.update({
+       Age: 0
+   }, function(error) {
+        if (error) {
+             console.log("error");  
+        } else {
+             console.log("Data saved successfully!");  
+        }
+      });
+
+      
+      
+  }    
+     
+});
+
+function myFunction1(){
+     var x = document.getElementById("mySelect").value;
+     var l = document.getElementById("myText1").value;
+     var d = new Date();
+     var Age1 = 0;
+     const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0001');
+     dbRefObject1.update({
+          Value: l
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+
+         if(ii<7){
+            if(l>34){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<34){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==34){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else if(ii<14){
+            if(l>31){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<31){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==31){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else if(ii<21){
+            if(l>27){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<27){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==27){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else if(ii<28){
+            if(l>24){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<24){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==24){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else if(ii<35){
+            if(l>21){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<21){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==21){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else if(ii<42){
+            if(l>19){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<19){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==19){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }else{
+            if(l>18){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิมากกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l<18){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ อุณหภูมิน้อยกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }else if(l==18){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });      
+            }
+         }
+
+     });
+     
+
+}
+
+function myFunction2(){
+     var x = document.getElementById("mySelect").value;
+     var l = document.getElementById("myText2").value;
+     var d = new Date();
+     const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0002');
+     dbRefObject1.update({
+          Value: l
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         if(ii<=14){
+            if(l>0.3){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมมากกว่าที่กำหนด",
+                    Solution: "ลดความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l<0.3){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมน้อยกว่าที่กำหนด",
+                    Solution: "เพิ่มความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l==0.3){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }
+         }else if(ii<=21){
+            if(l>0.5){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมมากกว่าที่กำหนด",
+                    Solution: "ลมความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l<0.5){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมน้อยกว่าที่กำหนด",
+                    Solution: "เพิ่มความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l==0.5){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }
+         }else if(ii<=28){
+            if(l>0.9){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมมากกว่าที่กำหนด",
+                    Solution: "ลดความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l<0.9){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมน้อยกว่าที่กำหนด",
+                    Solution: "เพิ่มความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l==0.9){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }
+         }else {
+            if(l>1.7){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l<1.7){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมน้อยกว่าที่กำหนด",
+                    Solution: "เพิ่มความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }else if(l>3.0){
+                dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความเร็วลมมากกว่าที่กำหนด",
+                    Solution: "ลดความแรงพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+            }
+         }
+    });
+
+}
+function send1(){
+        var d = new Date();
+        const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";
+    var x = document.getElementById("mySelect").value;
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0003');
+    dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความชื้นน้อยกว่าที่กำหนด",
+                    Solution: "เปิดพัดลมในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+        });
+}
+function send2(){
+        var d = new Date();
+        const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";
+    var x = document.getElementById("mySelect").value;
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0003');
+    dbRefObject1.update({
+                    Problem: "สภาพอากาศผิดปกติ ความชื้นมากกว่าที่กำหนด",
+                    Solution: "เปิดฮีทเตอร์ในโรงเรือน",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+                });
+    
+}
+function send3(){
+        var d = new Date();
+        const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";
+    var x = document.getElementById("mySelect").value;
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0003');
+    dbRefObject1.update({
+                    Problem: "สภาพอากาศปกติ",
+                    Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                        }, function(error) {
+                    if (error) {
+                            console.log("error");  
+                    } else {
+                            console.log("Data saved successfully!");  
+                    }
+                    });
+                });
+}
+function myFunction3(){
+     var x = document.getElementById("mySelect").value;
+     var l = document.getElementById("myText3").value;
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0003');
+     dbRefObject1.update({
+          Value: l
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+
+         if(ii<7){
+            if(l>50){
+               send2();    
+            }else if(l<30){
+                send1();    
+            }else {
+                send3();
+            }
+         }else if(ii<28){
+            if(l>60){
+                send2(); 
+            }else if(l<40){
+                send1(); 
+            }else {
+                send3(); 
+            }
+         }else {
+            if(l>70){
+                 send2(); 
+            }else if(l<50){
+                 send1();    
+            }else{
+                 send3();
+            }
+         }
+         
+}
+function myFunction4(){
+        var d = new Date();
+        const Age = firebase.database().ref().child('B0001/Age');
+     Age.on('value', snap => {
+        Age1 = snap.val();
+        var d1 = (d.getDate()+Age1).toString()+"/"+(d.getMonth()+1).toString()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"น.";     var x = document.getElementById("mySelect").value;
+     var l = document.getElementById("myText4").value;
+     const dbRefObject1 = firebase.database().ref().child(x+'/S0004');
+     dbRefObject1.update({
+          Value: l
+      }, function(error) {
+           if (error) {
+                console.log("error");  
+           } else {
+                console.log("Data saved successfully!");  
+           }
+         });
+         if(l>10){
+                dbRefObject1.update({
+            Problem: "สภาพอากาศผิดปกติ แก็สแอมโมเนียมากกว่าที่กำหนด",
+            Solution: "เปิดพัดลมระบายอากาศ",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+            if (error) {
+                    console.log("error");  
+            } else {
+                    console.log("Data saved successfully!");  
+            }
+            });
+
+         } if(l<10){
+                dbRefObject1.update({
+            Problem: "สภาพอากาศผิดปกติ แก็สแอมโมเนียน้อยกว่าที่กำหนด",
+            Solution: "ปิดพัดลมระบายอากาศ",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+            if (error) {
+                    console.log("error");  
+            } else {
+                    console.log("Data saved successfully!");  
+            }
+            });
+
+         }else if(l==10){
+            dbRefObject1.update({
+            Problem: "สภาพอากาศปกติ",
+            Solution: "",
+                    DateProblem: d1,
+                    DateRecom:"",
+                    Recommend:""
+                }, function(error) {
+            if (error) {
+                    console.log("error");  
+            } else {
+                    console.log("Data saved successfully!");  
+            }
+            });
+
+         }
+        });
+}
+function Age(){
+        var x = document.getElementById("mySelect").value;
+     var l = document.getElementById("myText1").value;
+     const a11 = firebase.database().ref().child(x+'/Start');
+     a11.on('value', snap =>{
+    console.log(snap.val());
+        if(snap.val()==1){
+
+                ii=ii+1;
+                if (ii<=42){
+
+                dbRefObject11.update({
+                Age: ii
+                }, function(error) {
+                if (error) {
+                console.log("error");  
+                } else {
+                console.log("Data saved successfully!");  
+                }
+                });
+                }else{
+
+                 ii = 0;
+                dbRefObject11.update({
+                Age:0,         
+                Start: 0 
+                }, function(error) {
+                if (error) {
+                console.log("error");  
+                } else {
+                console.log("Data saved successfully!");  
+                }
+                }); 
+                clearInterval(i2); 
+                }
+        }else{
+             
+        }
+     });
+    
+    
+}
+
+function myFunction5(){
+        dbRefObject11.update({
+                Finish: 1
+   }, function(error) {
+        if (error) {
+             console.log("error");  
+        } else {
+             console.log("Data saved successfully!");  
+        }
+      });
+}
+ 
+ </script>     
+</body>
+</html>

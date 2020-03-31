@@ -1,0 +1,338 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BFD.master.cs" Inherits="BFD.BFD" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>BFD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    
+    <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>  
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>  
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script> --%>
+    <script src="scripts/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <style>
+        /*body  {
+    background-image: url("/Pic/bg1.jpg");
+  background-color: #cccccc;
+
+}*/
+        @font-face {
+    font-family: 'DB Helvethaica X Blk v3.2'; /*a name to be used later*/
+    src: url("/font/DB Helvethaica X Blk v3.2.ttf"); /*URL to font*/
+}
+        @font-face {
+    font-family: 'DB Helvethaica X Bd Cond v3.2'; /*a name to be used later*/
+    src: url("/font/DB Helvethaica X Bd Cond v3.2.ttf"); /*URL to font*/
+}
+        @font-face {
+    font-family: 'DB Helvethaica X Cond v3.2'; /*a name to be used later*/
+    src: url("/font/DB Helvethaica X Cond v3.2.ttf"); /*URL to font*/
+}
+        /*.modal {
+          display: none; 
+          position: fixed; 
+          z-index: 1; 
+          padding-top: 100px; 
+          left: 0;
+          top: 0;
+          width: 100%; 
+          height: 100%; 
+          overflow: auto; 
+          background-color: rgb(0,0,0); 
+          background-color: rgba(0,0,0,0.4);
+        }*/
+        .modal-header, .close {
+            text-align: center;
+            font-size: 25px;
+        }
+        .navbar-brand{
+
+        margin-top: -5px;
+        }
+        .navbar{
+            height: auto;
+            color : #ffffff;
+            font-family: 'DB Helvethaica X Blk v3.2';
+            font-size:25px;
+        }
+        .caret{
+            /*font-size:50px;*/
+            width:10px;
+            height: 15px;
+        }
+        .nav{
+            color : #ffffff;
+            
+
+        }
+        .dropdown-menu{
+            font-family: 'DB Helvethaica X Blk v3.2';
+            font-size:21px;
+        }
+        .collapse{
+             margin-top: 5px;
+             margin-bottom: 5px;
+        }
+        .modal-header, .modal-body {
+            padding: 40px 50px;
+        }
+        .badge{
+            background-color: #F20505;
+        }
+        
+        footer {
+          background-color: #2d2d30;
+          color: #f5f5f5;
+          padding: 32px;
+          height: auto;
+          
+        }
+        
+
+        footer a {
+          color: #f5f5f5;
+          
+        }
+
+        footer a:hover {
+          color: #777;
+          text-decoration: none;
+        }
+       
+        h4{
+            font-family: 'DB Helvethaica X Bd Cond v3.2';
+            font-size:25px;
+        }
+         h3{
+            font-family: 'DB Helvethaica X Blk v3.2';
+            font-size:35px;
+            margin-top: 65px;
+              margin-bottom: 69px;
+              color:#ffffff;
+        }
+         .r1{
+             background-color: rgb(0,0,0);
+             height: 170px;
+             
+         }
+         p{
+             font-family: 'DB Helvethaica X Cond v3.2';
+              font-size:20px;
+         }
+         
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <% if (Session["Name_Login"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        } %>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand"  href="Home.aspx" style="width: 14%"><img src="Pic/Logo.png"  alt="Logo" style="width: 100%"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <%--<ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="Home.aspx">Home</a></li>
+                    <li><a href="Farm.aspx">ฟาร์ม</a></li>
+                    <li><a href="Building.aspx">โรงเรือน</a></li>
+                    <li><a href="Problem_recommend.aspx">ปัญหาและคำแนะนำ</a></li>
+                    <li><a href="Report.aspx">รายงาน</a></li>
+                    <li class="dropdown">
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span></a>
+                      <ul class="dropdown-menu">
+                         <li><a href="Setting.aspx"><span class="glyphicon glyphicon-user"></span> แก้ไขข้อมูล</a></li>
+                         <li><a href="Login.aspx"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
+                    </li>
+                    </ul>--%>
+            </div>
+        </div>
+    </nav>
+    <script type="text/javascript">
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCKzwPN3ZYKdDvN_qZjHAMMWG_jDz0rCyg",
+            authDomain: "bfd1-641d7.firebaseapp.com",
+            databaseURL: "https://bfd1-641d7.firebaseio.com",
+            projectId: "bfd1-641d7",
+            storageBucket: "",
+            messagingSenderId: "963166752196",
+            appId: "1:963166752196:web:04bf0910787dc935"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        <%--var x1 = '<%= Session["ID_Login"].ToString() %>';
+        var idl = x1.slice(0, -4);
+        if (idl == "F") {--%>
+            var divfff = 0;
+
+        <%for (int b = 0; b < Convert.ToInt32(Session["nFrNav"]); b++)
+        {%>
+
+
+                         <%for (int b1 = 0; b1 < Convert.ToInt32(Session["nBuNav" + b]); b1++)
+        {%>
+
+                                        <%for (int b2 = 0; b2 < Convert.ToInt32(Session["nSe1Nav[" + b + "," + b1 + "]"]); b2++)
+        {%>
+
+                                                    var Problem = firebase.database().ref().child('<%=Session["idBuiNav[" + b + "," + b1 + "]"].ToString()%>' + '/' + '<%=Session["idSenNav" + b + "," + b1 + "," + b2].ToString()%>' + '/Problem');
+
+                                                        Problem.on('value', snap => {
+                                                            var proo = snap.val();
+                                                            var aa1 = proo.slice(9, 10);
+                                                            //    console.log(proo);
+                                                            if (proo != "" && aa1 == "ผ") {
+                                                                var Recommend = firebase.database().ref().child('<%=Session["idBuiNav[" + b + "," + b1 + "]"].ToString()%>' + '/' + '<%=Session["idSenNav" + b + "," + b1 + "," + b2].ToString()%>' + '/Recommend');
+                                                                divfff = divfff + 1;
+                                                                Recommend.on('value', snap => {
+                                                                    if (snap.val() != "") {
+                                                                        divfff = divfff + 1;
+                                                                        
+                                                                    }
+                                                                    nav(divfff);
+                                                                });
+
+
+
+                                                                //$.ajax({
+                                                                //    type: "POST",
+                                                                //    url: "Home.aspx/Sentdata",
+                                                                //    data: '{name: "' + proo + '" }',
+                                                                //    contentType: "application/json; charset=utf-8",
+                                                                //    dataType: "json",
+                                                                //    success: OnSuccess,
+                                                                //    failure: function (response) {
+                                                                //        alert(response.d);
+                                                                //    }
+                                                                //});
+
+
+
+
+                                                            }
+                                                            nav(divfff);
+
+
+
+                                                        });
+
+
+
+                                        <%}%>
+
+
+                        <%}%>
+        <%}%>
+        
+
+       
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+        function nav(di) {
+
+            var x1 =  '<%= Session["Name_Login"].ToString() %>';
+            console.log(x1);
+            var x2 = '<%= Session["ID_Login"].ToString() %>';
+            console.log(x2);
+            var idl = x2.slice(0, -4);
+            console.log(idl);
+
+            if (di != 0) {
+                var nav = '<ul class="nav navbar-nav navbar-right">' +
+                    '<li><a href="Farm.aspx" >ฟาร์ม</a></li>' +
+                    //'<li><a href="Building.aspx">โรงเรือน</a></li>' +
+                    '<li><span class="badge badge-danger"  style="float:right;margin-bottom:-10px;font-size:18px;">' + di + '</span><a href="Problem_recommend.aspx">แจ้งเตือน<span class="sr-only" >(current)</span></a></li>' +
+                    '<li><a href="Report.aspx"> รายงาน</a></li>' +
+                    '<li class="dropdown">' +
+                    '   <a class="dropdown-toggle" data-toggle="dropdown" href="#"> ' + x1 + ' <span class="caret"></span></a>' +
+                    '  <ul class="dropdown-menu">' +
+                    '     <li><a href="Setting.aspx">แก้ไขข้อมูล</a></li>' +
+                    '     <li><a href="Login.aspx">ออกจากระบบ</a></li>' +
+                    '</ul>' +
+                    '</li>' +
+                    '</ul>';
+            } else {
+                var nav = '<ul class="nav navbar-nav navbar-right">' +
+                    '<li><a href="Farm.aspx">ฟาร์ม</a></li>' +
+                    ////'<li><a href="Building.aspx">โรงเรือน</a></li>' +
+                    '<li><a href="Problem_recommend.aspx">แจ้งเตือน</a></li>' +
+                    '<li><a href="Report.aspx">รายงาน</a></li>' +
+                    '<li class="dropdown">' +
+                    '   <a class="dropdown-toggle" data-toggle="dropdown" href="#">' + x1 + ' <span class="caret"></span></a>' +
+                    '  <ul class="dropdown-menu">' +
+                    '     <li><a href="Setting.aspx">แก้ไขข้อมูล</a></li>' +
+                    '     <li><a href="Login.aspx">ออกจากระบบ</a></li>' +
+                    '</ul>' +
+                    '</li>' +
+                    '</ul>';
+
+            }
+
+
+            document.getElementById("myNavbar").innerHTML = nav;
+        }
+
+        //$('[data-toggle="tooltip"]').tooltip(); 
+        
+
+    </script>
+    <br />
+    <br />
+    
+    
+          <form id="form1" runat="server">
+              <div>
+                  <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <br />
+    <br />
+    <footer class="text-center">
+  <a class="up-arrow" href="#" data-toggle="tooltip" title="TO TOP">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a><br><br>
+        <div class="row">
+        <div class="col-sm-3 text-center">
+            <a href="#"><img src="Pic/facebook.png"  alt="Logo" style="width: 20%"></a>
+            <h4>ระบบบริหารไก่ประกัน</h4>
+</div>
+        <div class="col-sm-3 text-center">
+            <a href="#"><img src="Pic/Line1.png"  alt="Logo" style="width: 20%"></a>
+            <h4>@BFD_Admin</h4>
+</div>
+        <div class="col-sm-3 text-center">
+            <a href="#"><img src="Pic/e-mail.png"  alt="Logo" style="width: 20%"></a>
+            <h4>BFD_official@gmail.com</h4>
+</div>
+        <div class="col-sm-3 text-center">
+            <a href="#"><img src="Pic/call1.png"  alt="Logo" style="width: 20%"></a>
+            <h4>064-454-7445</h4>
+        </div>
+
+        </div>
+</footer>
+
+</body>
+</html>
